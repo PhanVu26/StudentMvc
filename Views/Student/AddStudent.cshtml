@@ -1,0 +1,31 @@
+
+@{  
+    ViewData["title"] = "Add New Student";  
+}
+
+<h3>Add new student</h3>
+
+<form action="/student/SaveStudent" method="POST">
+    <table>
+        <tr class="mb-3">
+            <td>Name</td>
+            <td>
+                <input type="text" name="name">
+            </td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td>
+                <input type="text" name="age">
+            </td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>
+                <input type="text" name="address">
+            </td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary mt-3">Save</button>
+
+</form>
