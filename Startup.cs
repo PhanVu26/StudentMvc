@@ -29,6 +29,7 @@ namespace StudentMvc
             services.AddDbContext<DataContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("StudentDBCon")));
             services.AddTransient<IStudentService, StudentService>();     
+            services.AddTransient<IFacultyService, FacultyService>();     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

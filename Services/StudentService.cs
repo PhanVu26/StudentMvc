@@ -36,6 +36,7 @@ namespace StudentMvc.Services
             editStudent.Name = student.Name;
             editStudent.Age = student.Age;
             editStudent.Address = student.Address;
+            editStudent.Faculty = student.Faculty;
 
             _context.SaveChanges();
         }

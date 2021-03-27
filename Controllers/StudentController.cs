@@ -12,15 +12,25 @@ namespace StudentMvc.Controllers
     {
 
         private readonly IStudentService _studentService;
+        private readonly IFacultyService _facultyService;
 
-        public StudentController(IStudentService studentService)
+        public StudentController(IStudentService studentService, IFacultyService facultyService)
         {
             _studentService = studentService;
+            _facultyService  = facultyService;
 
         }
         public IActionResult Index()
         {
             var students = _studentService.GetStudents();
+            foreach(var st in students){
+                st.Faculty = _facultyService.GetFacultyById(st.FacultyId);
+            }
+            var faculties = _facultyService.GetFaculties();
+            ViewModel viewModel = new ViewModel{Students = students, Faculties = faculties};
+           
+            // viewModel.Students = students;
+            // viewModel.Faculties = faculties;
             // var students = _context.Students.ToList();
 
             // students.Add(new Student{Id = 1, Name = "Phan Vu", Age=22, Address="Gia Lai"});
@@ -28,18 +38,20 @@ namespace StudentMvc.Controllers
             // students.Add(new Student{Id = 3, Name = "Phan Vu2", Age=22, Address="Gia Lai"});
             //Viewbag.students
             //ViewData["students"] = students;
-            return View(students);
+            return View(viewModel);
         }
 
         public IActionResult AddStudent()
         {
-           
-            
-            return View();
+
+            var faculties = _facultyService.GetFaculties();
+            return View(faculties);
         }
         public IActionResult SaveStudent(Student student)
         {
-            if(student.Id == 0){
+            student.Faculty = _facultyService.GetFacultyById(student.FacultyId);
+            if (student.Id == 0)
+            {
                 _studentService.AddNewStudent(student);
             }
             else _studentService.EditStudent(student);
@@ -48,8 +60,11 @@ namespace StudentMvc.Controllers
 
         public IActionResult EditStudent(int id)
         {
-            var student  = _studentService.GetStudentById(id);
-            return View(student);
+            var student = _studentService.GetStudentById(id);
+            var faculties = _facultyService.GetFaculties();
+
+            EditViewModel editViewModel = new EditViewModel{Student = student, Faculties = faculties};
+            return View(editViewModel);
         }
 
         // public IActionResult SaveEditStudent(Student student)

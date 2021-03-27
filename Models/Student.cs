@@ -10,5 +10,10 @@ namespace StudentMvc.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public int Age { get; set; }
+
+        [ForeignKey("FacultyId")]
+        public int FacultyId { get; set; }
+
+        public Faculty Faculty { get; set; }
     }
 }

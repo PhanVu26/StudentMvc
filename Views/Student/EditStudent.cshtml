@@ -1,7 +1,9 @@
-@model Student
+@model EditViewModel
 @{  
     ViewData["title"] = "Student page";
-    Student student =  Model;
+    EditViewModel editViewModel =  Model;
+    Student student = editViewModel.Student;
+    List<Faculty> faculties = editViewModel.Faculties;
     
 }
 <h3>Add new student</h3>
@@ -18,6 +20,22 @@
             <td>Name</td>
             <td>
                 <input type="text" name="name" value="@student.Name">
+            </td>
+        </tr>
+        <tr class="mb-3">
+            <td>Khoa</td>
+            <td>
+                <select name="facultyId">
+                    <option value="@student.FacultyId" selected>
+                            @student.Faculty.Name
+                    </option>
+                    @foreach (var f in faculties)
+                    {
+                        <option value="@f.Id">
+                            @f.Name
+                        </option>
+                    }
+                </select>
             </td>
         </tr>
         <tr>

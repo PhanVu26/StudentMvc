@@ -1,6 +1,7 @@
-
+@model List<Faculty>
 @{  
-    ViewData["title"] = "Add New Student";  
+    ViewData["title"] = "Add New Student"; 
+    List<Faculty> faculties = Model; 
 }
 
 <h3>Add new student</h3>
@@ -11,6 +12,19 @@
             <td>Name</td>
             <td>
                 <input type="text" name="name">
+            </td>
+        </tr>
+        <tr class="mb-3">
+            <td>Khoa</td>
+            <td>
+                <select name="facultyId">
+                    @foreach (var f in faculties)
+                    {
+                        <option value="@f.Id">
+                            @f.Name
+                        </option>
+                    }
+                </select>
             </td>
         </tr>
         <tr>
